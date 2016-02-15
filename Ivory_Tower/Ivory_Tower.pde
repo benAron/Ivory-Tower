@@ -3,26 +3,20 @@
 * Experiment by artist Ben Aron */
 
 import http.requests.*;
-  String url = "http://dev.markitondemand.com/Api/v2/Quote";
-  
-  
-  String price = "";
-
+String url =  
+String price = "";
 
 void setup() { 
   size(800, 500);
-  
-  GetRequest getR = new GetRequest(url+ "?symbol=" + company);
-  getR.send();
-  rawContent = getR.getContent();
 }
 
 void draw() { 
-  
+  println(findPrice("AAPL"));
+  delay(1000);
   
 }
 
-void findPrice(String symbol) { 
+String findPrice(String symbol) { 
   
   //Grab information
   GetRequest web = new GetRequest(url+ "?symbol=" + symbol);
@@ -34,5 +28,5 @@ void findPrice(String symbol) {
   String firstHalf = cutOne[0];
   String[] cutTwo = firstHalf.split("<LastPrice>");
   price = cutTwo[1];
-
+  return price;
 }
