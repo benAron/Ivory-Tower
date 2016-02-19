@@ -3,44 +3,32 @@
 * Experiment by artist Ben Aron */
 
 import http.requests.*;
-String url =  
+String url = "https://www.quandl.com/api/v3/datasets/WIKI/AAPL/data.json?end_date=2015-05-27";
 String price = "";
 
 void setup() { 
   size(800, 500);
-  String url = "https://www.quandl.com/api/v3/datasets/WIKI/AAPL/data.json?end_date=2015-05-27";
-  
-  
-  String price = "";
-
-
-void setup() { 
-  size(800, 500);
-  
-  GetRequest getR = new GetRequest(url);
-  getR.send();
-  rawContent = getR.getContent();
 }
 
 void draw() { 
-  println(findPrice("AAPL"));
+  println(findPrice());
   delay(1000);
-  
+  noLoop();
 }
 
-String findPrice(String symbol) { 
+String findPrice() { 
   
   //Grab information
-  GetRequest web = new GetRequest(url+ "?symbol=" + symbol);
+  GetRequest web = new GetRequest(url);
   web.send();
   String rawContent = web.getContent();
 
-  //Parse
+  /*Parse
   String[] cutOne = rawContent.split("</LastPrice>");
   String firstHalf = cutOne[0];
   String[] cutTwo = firstHalf.split("<LastPrice>");
   price = cutTwo[1];
   return price;
-}
-
+  */
+  return rawContent;
 }
