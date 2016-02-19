@@ -3,7 +3,7 @@
 * Experiment by artist Ben Aron */
 
 import http.requests.*;
-  String url = "http://dev.markitondemand.com/Api/v2/Quote";
+  String url = "https://www.quandl.com/api/v3/datasets/WIKI/AAPL/data.json?end_date=2015-05-27";
   
   
   String price = "";
@@ -12,7 +12,7 @@ import http.requests.*;
 void setup() { 
   size(800, 500);
   
-  GetRequest getR = new GetRequest(url+ "?symbol=" + company);
+  GetRequest getR = new GetRequest(url);
   getR.send();
   rawContent = getR.getContent();
 }
