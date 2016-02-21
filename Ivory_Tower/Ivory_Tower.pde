@@ -8,26 +8,39 @@ String url = "https://www.quandl.com/api/v3/datasets/WIKI/DV/data.json?start_dat
 int imageW = 290;
 int imageH = 500;
 int scaleInt = 0;
-int testPrice = 31;
+int counter = 0;
+int[] testPrices = {31, 32, 40, 21, 25, 50};
+int testPrice= 0;
+int time = 0;
+int lastTime = 0;
 
 PImage devry;
 
 void setup() { 
-  devry = loadImage("devry.jpg");
   size(800, 800);
 }
 
-void draw() { 
+void draw() {
+  devry = loadImage("devry.jpg");
+  time = millis();
+  if(time - lastTime > 1000) { 
+   counter ++; 
+   lastTime = millis();
+  }
+  if(counter >= 5) { 
+        noLoop(); 
+     }
+  testPrice = testPrices[counter];
+  println(counter);
+  
   background(255);
   
   //float scaleAmount = findPrice() / 100;
   float scaleAmount = testPrice / 100.00;
   scaleInt = (int) scaleAmount;
-  println(scaleAmount);
   
   devry.resize((int)(imageW * scaleAmount), (int)(imageH * scaleAmount));
   image(devry, 0,0);
-  noLoop();
 }
 
 float findPrice() {  
