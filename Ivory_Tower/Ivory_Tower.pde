@@ -3,24 +3,42 @@
 * Experiment by artist Ben Aron */
 
 import http.requests.*;
-String url = "https://www.quandl.com/api/v3/datasets/WIKI/AAPL/data.json?start_date=2015-05-27&end_date=2015-05-27";
-String price = "";
+//Communicate w/ API
+String url = "https://www.quandl.com/api/v3/datasets/WIKI/DV/data.json?start_date=2015-05-27&end_date=2015-05-27";
+int imageW = 290;
+int imageH = 500;
+int scaleInt = 0;
+int testPrice = 31;
+
+PImage devry;
 
 void setup() { 
-  size(800, 500);
+  devry = loadImage("devry.jpg");
+  size(800, 800);
 }
 
 void draw() { 
-  println(findPrice());
+  background(255);
+  
+  //float scaleAmount = findPrice() / 100;
+  float scaleAmount = testPrice / 100.00;
+  scaleInt = (int) scaleAmount;
+  println(scaleAmount);
+  
+  devry.resize((int)(imageW * scaleAmount), (int)(imageH * scaleAmount));
+  image(devry, 0,0);
   noLoop();
 }
 
-String findPrice() { 
-  
+float findPrice() {  
   //Grab information
   GetRequest web = new GetRequest(url);
   web.send();
   String rawContent = web.getContent();
   
-  return rawContent;
+  String grabData = rawContent.split("\\[\\[")[1];
+  String cutEnd = grabData.split("\\]\\]")[0];
+  String closePrice = cutEnd.split(",")[4];
+  float closeFloat = Float.valueOf(closePrice);
+  return closeFloat;
 }
